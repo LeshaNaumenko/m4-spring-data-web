@@ -1,0 +1,45 @@
+group 'com.uacodespace'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testCompile "junit:junit:$junitVersion"
+
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-test:$springVersion"
+    compile "org.springframework:spring-orm:$springVersion"
+    compile "org.springframework:spring-tx:$springVersion"
+
+    compile "org.springframework.data:spring-data-jpa:$springDataJpaVersion"
+
+    compile "javax.validation:validation-api:$javaxValidationVersion"
+    compile "org.hibernate:hibernate-validator:$hibernateVersion"
+
+    /*MySQL JDBC Driver*/
+    compile "mysql:mysql-connector-java:$mysqlConnectorVesrion"
+
+    /*JPA :: Hibernate ORM*/
+    compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$jpaVersion"
+    compile "org.hibernate:hibernate-core:$hibernateVersion"
+
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
+
+    compile "javax.servlet:jstl:$jstlVersion"
+    /*Logging*/
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
+
+    providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
+}
