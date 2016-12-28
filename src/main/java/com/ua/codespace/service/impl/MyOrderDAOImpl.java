@@ -31,7 +31,7 @@ public class MyOrderDAOImpl implements MyOrderDao {
 
     @Override
     public Long checkOut(Customer c, List<Long> listId) {
-
+        System.out.println("Hello");
         Order custOrder = new Order(c);
         List<Product> list = new ArrayList<>();
         for (Long aLong : listId) {
