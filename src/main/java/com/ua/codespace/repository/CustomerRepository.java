@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    Customer findByFirstName(String firstName);
+    Customer findByLoginAndPassword(String login, String password);
 //
 //    Customer findByLogin(String login);
 //

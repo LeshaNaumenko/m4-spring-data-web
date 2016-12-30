@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Lesha Naumenko
@@ -23,16 +24,25 @@
 <form method="post" action="entrance">
     <div class="main">
         <div class="field">
-            <label for="name">Name:</label>
-            <input type="text" name="name" />
+            <label for="login">Login:</label>
+            <input type="text" name="login" />
         </div>
+        <div class="field">
+            <label for="password">Password:</label>
+            <input type="password" name="password" />
+        </div>
+        <div class="field">
+            <input type="submit" value="Send">
+        </div>
+        <div>
+            <h3 style="color: red">${message}</h3>
+        </div>
+
+        <div class="field">
+            <a href="reg.html">Реєстрація</a>
+        </div>
+
     </div>
 </form>
-<br/>
-
-<div class="field">
-
-    <a href="SpringRegistration.jsp">Реєстрація</a>
-</div>
 </body>
 </html>

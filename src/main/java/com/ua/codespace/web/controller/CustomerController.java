@@ -7,14 +7,14 @@ import com.ua.codespace.repository.ProductRepository;
 import com.ua.codespace.service.MyOrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping({"/", "/welcome"})
+@RequestMapping("/")
 public class CustomerController {
 
     @Autowired
@@ -32,24 +32,28 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/entrance", method = RequestMethod.POST)
-    public String entrance(@RequestParam String firstName,
-                           HttpSession session) {
-
-        if (!firstName.equals("")) {
-            Customer customer = customerRepository.findByFirstName(firstName);
-            if (customer == null || !customer.getFirstName().equals(firstName)) {
-                return "/";
-            } else {
-                HttpSession session1 = session;
+    public String entrance(@RequestParam String login, @RequestParam String password, HttpSession session, Model model) {
+        if(!login.equals("") && !password.equals("")){
+            Customer customer = customerRepository.findByLoginAndPassword(login, password);
+            System.out.println(customer==null);
+            if (customer!=null){
+                System.out.println("Привет2");
+                HttpSession mySession = session;
                 List<Product> products = productRepository.findAll();
-                session1.setAttribute("customer", customer);
-                session1.setAttribute("products", products);
+                mySession.setAttribute("customer", customer);
+                mySession.setAttribute("products", products);
+                System.out.println("Привет3");
                 return "redirect:/orders";
+            }else {
+                System.out.println("Привет4");
+                model.addAttribute("message","such user does not exist");
+                return "SpringSingIn";
             }
-        } else {
-            return "/";
+        }else {
+            System.out.println("Привет5");
+            model.addAttribute("message", "wrong input");
+            return "SpringSingIn";
         }
-
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
