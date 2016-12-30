@@ -47,12 +47,12 @@ public class CustomerController {
             }else {
                 System.out.println("Привет4");
                 model.addAttribute("message","such user does not exist");
-                return "SpringSingIn";
+                return "login";
             }
         }else {
             System.out.println("Привет5");
             model.addAttribute("message", "wrong input");
-            return "SpringSingIn";
+            return "login";
         }
     }
 
