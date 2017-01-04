@@ -9,6 +9,7 @@ import com.ua.codespace.repository.ProductRepository;
 import com.ua.codespace.service.MyOrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * Created by Lesha Naumenko on 02.12.2016.
  */
-@Component
+@Service
 @Transactional
 public class MyOrderDAOImpl implements MyOrderDao {
 
@@ -32,13 +33,13 @@ public class MyOrderDAOImpl implements MyOrderDao {
     @Override
     public Long checkOut(Customer c, List<Long> listId) {
         System.out.println("Hello");
-        Order custOrder = new Order(c);
+        Order order = new Order(c);
         List<Product> list = new ArrayList<>();
         for (Long aLong : listId) {
             list.add(productRepository.findOne(aLong));
         }
-        custOrder.addProductsList(list);
-        orderRepository.saveAndFlush(custOrder);
-        return custOrder.getId();
+        order.addProductsList(list);
+        orderRepository.save(order);
+        return order.getId();
     }
 }

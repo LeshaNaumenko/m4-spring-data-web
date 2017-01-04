@@ -1,15 +1,16 @@
 package com.ua.codespace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Lesha Naumenko on 28.11.2016.
- */
+
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +25,39 @@ public class Product {
     @Column(name = "url")
     private String url;
 
+    @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+        if (!supplier.getProducts().contains(this)){
+            supplier.getProducts().add(this);
+        }
+    }
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
     private Category category;
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+        if (!category.getProducts().contains(this)){
+            category.getProducts().add(this);
+        }
+    }
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
     private List<Order> orders =new ArrayList<>();
 
@@ -73,7 +101,7 @@ public class Product {
         this.orders = orders;
     }
 
-    public void addOreder(Order order) {
+    public void addOrder(Order order) {
         orders.add(order);
     }
 

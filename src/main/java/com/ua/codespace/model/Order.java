@@ -1,9 +1,8 @@
 package com.ua.codespace.model;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,7 +56,7 @@ public class Order {
 
     public void addProduct(Product p){
         products.add(p);
-        p.addOreder(this);
+        p.addOrder(this);
     }
 
     public void addProductsList(List<Product> list){

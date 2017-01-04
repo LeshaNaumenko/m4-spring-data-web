@@ -39,7 +39,7 @@
         </div>
 
         <div class="field">
-            <a href="reg.html">Реєстрація</a>
+            <a href="sign_in">Реєстрація</a>
         </div>
 
     </div>

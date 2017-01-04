@@ -1,5 +1,6 @@
 package com.ua.codespace.model;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -24,6 +25,18 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new HashSet<>();
 
+
+    public void addProduct(Product product){
+        products.add(product);
+        if (product.getCategory()!=this){
+            product.setCategory(this);
+        }
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
     public Category() {
     }
 
@@ -35,7 +48,6 @@ public class Category {
     public String getName() {
         return name;
     }
-
 
     public String getDescription() {
         return description;

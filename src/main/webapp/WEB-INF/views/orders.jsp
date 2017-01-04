@@ -17,8 +17,14 @@
     <c:forEach items ="${products}" var = "prod">
         <input type="checkbox" name="favoriteProduct"  value="${prod.id}">${prod.id}  ${prod.name}<br>
     </c:forEach>
-    <input type="submit" value="Send" >
+    <c:if test="${existSession eq 1}">
+        <input type="submit" value="Send" >
+    </c:if>
 </form>
+<c:if test="${existSession eq 1}">
+    <a href="leave_the_session">Вихід</a>
+</c:if>
+
 
 </body>
 </html>

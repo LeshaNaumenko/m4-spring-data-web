@@ -1,6 +1,6 @@
 package com.ua.codespace.rest.controller;
 
-import com.ua.codespace.exception.UserNotFoundException;
+import com.ua.codespace.exception.CustomerNotFoundException;
 import com.ua.codespace.model.Customer;
 import com.ua.codespace.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +17,17 @@ public class CustomerRestController {
     CustomerRepository customerRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Customer> getUsers() {
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 
     @RequestMapping("/{id}")
     public Customer get(@PathVariable Long id) {
-        Customer user = customerRepository.findOne(id);
-        if (user==null){
-            throw new UserNotFoundException(id);
+        Customer customer = customerRepository.findOne(id);
+        if (customer==null){
+            throw new CustomerNotFoundException(id);
         }else {
-            return user;
+            return customer;
         }
     }
 

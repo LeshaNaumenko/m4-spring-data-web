@@ -1,6 +1,7 @@
 package com.ua.codespace.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "suppliers")
-public class Supplier {
+public class Supplier implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +36,10 @@ public class Supplier {
         this.name = name;
         this.address = address;
         this.city = city;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     public String getName() {
@@ -82,5 +87,12 @@ public class Supplier {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
         return result;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+        if (product.getSupplier()!=this){
+            product.setSupplier(this);
+        }
     }
 }

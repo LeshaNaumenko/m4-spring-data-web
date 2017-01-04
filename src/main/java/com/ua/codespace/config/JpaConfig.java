@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories("com.ua.codespace.repository")
+@EnableSpringDataWebSupport
 @Import(TransactionConfig.class)
 public class JpaConfig {
 

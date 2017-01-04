@@ -1,48 +1,48 @@
 package com.ua.codespace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by Lesha Naumenko on 27.11.2016.
  */
-@Entity
 
+@Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+//    @NotNull
     @Column(name = "first_name")
     private String firstName;
 
-    @NotNull
+//    @NotNull
     @Column(name = "last_name")
     private String lastName;
 
-    @NotNull
+//    @NotNull
     @Column(name = "login")
     private String login;
 
-    @NotNull
-
+//    @NotNull
     @Column(name = "password")
     private String password;
 
-    @NotNull
-    @Size(min = 5, max = 12 )
+//    @NotNull
+//    @Size(min = 5, max = 12 )
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
-
-
-
 
     public Customer() {
     }
@@ -121,5 +121,15 @@ public class Customer {
         int result = id.hashCode();
         result = 31 * result + login.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber+"}";
     }
 }
